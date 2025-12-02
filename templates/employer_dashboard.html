@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>Employer Dashboard</h3>
+
+<a class="btn btn-success mb-3" href="{{ url_for('create_position') }}">Create New Position</a>
+
+<h5>Your Positions</h5>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Status</th>
+            <th>Applicants</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for p in positions %}
+            <tr>
+                <td>{{ p.title }}</td>
+                <td>{{ p.status }}</td>
+                <td>
+                    <a class="btn btn-sm btn-primary" href="{{ url_for('view_applicants', pid=p.id) }}">
+                        View Applicants
+                    </a>
+                </td>
+            </tr>
+        {% else %}
+            <tr><td colspan="3">You have no posted positions.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

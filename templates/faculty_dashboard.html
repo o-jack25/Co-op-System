@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>Faculty Dashboard</h3>
+
+<h5 class="mt-4">Co-op Summaries Pending Grade</h5>
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Student</th>
+            <th>Position</th>
+            <th>Summary</th>
+            <th>Grade</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for s in summaries %}
+            <tr>
+                <td>{{ s.student.full_name }}</td>
+                <td>{{ s.position.title }}</td>
+                <td>{{ s.summary_text[:60] }}...</td>
+                <td>{{ s.grade or "Not graded" }}</td>
+                <td>
+                    <a href="{{ url_for('enter_grade', summary_id=s.id) }}" class="btn btn-sm btn-primary">Grade</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr><td colspan="5">No summaries submitted yet.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

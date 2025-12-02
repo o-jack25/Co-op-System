@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>Student Dashboard</h3>
+
+<h5 class="mt-4">My Applications</h5>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Position</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for app in my_apps %}
+            <tr>
+                <td>{{ app.position.title }}</td>
+                <td>{{ app.status }}</td>
+                <td>
+                    <a class="btn btn-sm btn-primary" href="{{ url_for('position_detail', pid=app.position.id) }}">View</a>
+
+                    {% if app.status == 'selected' %}
+                        <a class="btn btn-sm btn-success" href="{{ url_for('indicate_interest', aid=app.id) }}">
+                            Indicate Co-op Interest
+                        </a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr><td colspan="3">No applications yet.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h5 class="mt-5">Submit Summary</h5>
+<p>After your internship ends, submit a short summary below:</p>
+<ul>
+    {% for app in pending %}
+        <li>
+            <b>{{ app.position.title }}</b> —
+            <a href="{{ url_for('submit_summary', pid=app.position.id) }}" class="btn btn-sm btn-outline-success">
+                Submit Summary
+            </a>
+        </li>
+    {% else %}
+        <li>No summaries available to submit.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

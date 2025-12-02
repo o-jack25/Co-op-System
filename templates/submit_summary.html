@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>Submit Co-op Summary for: {{ position.title }}</h3>
+
+<form method="POST">
+    {{ form.hidden_tag() }}
+
+    <div class="mb-3">
+        {{ form.summary_text.label }}
+        {{ form.summary_text(class="form-control", rows="6") }}
+    </div>
+
+    <button class="btn btn-success" type="submit">Submit Summary</button>
+</form>
+
+<a class="btn btn-secondary mt-3" href="{{ url_for('student_dashboard') }}">Back</a>
+{% endblock %}

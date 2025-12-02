@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>Application Submitted</h3>
+
+<p>You successfully applied to:</p>
+<h4>{{ position.title }}</h4>
+
+<p>The employer will review your application. If selected, you will receive an email notification (simulated).</p>
+
+<a class="btn btn-primary mt-3" href="{{ url_for('student_dashboard') }}">Go to Dashboard</a>
+{% endblock %}

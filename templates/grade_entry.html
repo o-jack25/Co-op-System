@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>Enter Grade for {{ summary.student.full_name }}</h3>
+
+<p><strong>Position:</strong> {{ summary.position.title }}</p>
+<p><strong>Summary:</strong></p>
+<div class="border rounded p-3 mb-3 bg-light">
+    {{ summary.summary_text }}
+</div>
+
+<form method="POST">
+    {{ form.hidden_tag() }}
+
+    <div class="mb-3">
+        {{ form.grade.label }}
+        {{ form.grade(class="form-control") }}
+    </div>
+
+    <button class="btn btn-primary" type="submit">Submit Grade</button>
+</form>
+
+<a class="btn btn-secondary mt-3" href="{{ url_for('faculty_dashboard') }}">Back</a>
+{% endblock %}

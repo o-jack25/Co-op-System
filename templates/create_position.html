@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>Create a New Position</h3>
+
+<form method="POST">
+    {{ form.hidden_tag() }}
+
+    <div class="mb-3">{{ form.title.label }} {{ form.title(class="form-control") }}</div>
+    <div class="mb-3">{{ form.description.label }} {{ form.description(class="form-control", rows="5") }}</div>
+
+    <div class="row">
+        <div class="col-md-6 mb-3">{{ form.weeks.label }} {{ form.weeks(class="form-control") }}</div>
+        <div class="col-md-6 mb-3">{{ form.hours_per_week.label }} {{ form.hours_per_week(class="form-control") }}</div>
+    </div>
+
+    <div class="mb-3">{{ form.location.label }} {{ form.location(class="form-control") }}</div>
+    <div class="mb-3">{{ form.majors_of_interest.label }} {{ form.majors_of_interest(class="form-control") }}</div>
+    <div class="mb-3">{{ form.required_skills.label }} {{ form.required_skills(class="form-control") }}</div>
+    <div class="mb-3">{{ form.preferred_skills.label }} {{ form.preferred_skills(class="form-control") }}</div>
+    <div class="mb-3">{{ form.salary.label }} {{ form.salary(class="form-control") }}</div>
+
+    <button type="submit" class="btn btn-success">Create Position</button>
+</form>
+{% endblock %}

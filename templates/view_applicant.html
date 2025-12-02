@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>Applicants for: {{ position.title }}</h3>
+
+<p><strong>Status:</strong> {{ position.status }}</p>
+
+{% if apps %}
+<table class="table table-striped table-bordered mt-3">
+    <thead>
+        <tr>
+            <th>Student Name</th>
+            <th>Email</th>
+            <th>GPA</th>
+            <th>Semesters Completed</th>
+            <th>Transfer?</th>
+            <th>Resume</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for app in apps %}
+        <tr>
+            <td>{{ app.student.full_name }}</td>
+            <td>{{ app.student.email }}</td>
+            <td>{{ app.student.gpa }}</td>
+            <td>{{ app.student.semesters_completed }}</td>
+            <td>{{ "Yes" if app.student.is_transfer else "No" }}</td>
+            <td>
+                {% if app.student.resume_text %}
+                    <button class="btn btn-sm btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#resume{{ app.id }}">
+                        View Resume
+                    </button>
+
+                    <div id="resume{{ app.id }}" class="collapse mt-2">
+                        <div class="card card-body">
+                            {{ app.student.resume_text }}
+                        </div>
+                    </div>
+                {% else %}
+                    <span class="text-muted">No resume</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<hr>
+
+<h4>Select a Candidate</h4>
+
+<form method="POST">
+    {{ form.hidden_tag() }}
+
+    <div class="mb-3">
+        <label>Enter Student ID to Select:</label>
+        {{ form.selected_student_id(class="form-control", placeholder="e.g., 5") }}
+        <small class="text-muted">You can find the student ID in your database or by printing app.student.id</small>
+    </div>
+
+    <div class="mb-3">
+        <label>Offer Letter / Notes</label>
+        {{ form.offer_letter(class="form-control", rows="4") }}
+    </div>
+
+    <button class="btn btn-primary" type="submit">Mark as Selected</button>
+</form>
+
+{% else %}
+<div class="alert alert-info mt-3">No applicants for this position yet.</div>
+{% endif %}
+
+<a class="btn btn-secondary mt-3" href="{{ url_for('employer_dashboard') }}">Back to Dashboard</a>
+
+{% endblock %}
