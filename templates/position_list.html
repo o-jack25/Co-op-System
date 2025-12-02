@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>Open Positions</h3>
+<form class="row g-2 mb-3" action="{{ url_for('search') }}" method="get">
+  <div class="col-auto">
+    <input name="q" class="form-control" placeholder="search">
+  </div>
+  <div class="col-auto">
+    <select name="by" class="form-select">
+      <option value="title">Title</option>
+      <option value="employer">Employer</option>
+      <option value="location">Location</option>
+    </select>
+  </div>
+  <div class="col-auto"><button class="btn btn-primary">Search</button></div>
+</form>
+
+<ul class="list-group">
+  {% for p in positions %}
+    <li class="list-group-item">
+      <a href="{{ url_for('position_detail', pid=p.id) }}">{{ p.title }}</a>
+      <div><small>{{ p.employer.company_name or p.employer.full_name }} — {{ p.location }} — {{ p.weeks }} weeks, {{ p.hours_per_week }} hrs/wk</small></div>
+    </li>
+  {% else %}
+    <li class="list-group-item">No positions found.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

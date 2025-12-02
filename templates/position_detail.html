@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>{{ position.title }}</h3>
+<p>{{ position.description }}</p>
+<p><b>Weeks:</b> {{ position.weeks }} &nbsp; <b>Hours/wk:</b> {{ position.hours_per_week }} &nbsp; <b>Location:</b> {{ position.location }}</p>
+
+{% if current_user.is_authenticated and current_user.role=='student' %}
+  <form method="post">
+    {{ form.hidden_tag() }}
+    {{ form.submit(class="btn btn-primary") }}
+  </form>
+{% else %}
+  <p><a href="{{ url_for('login') }}" class="btn btn-outline-primary">Login as student to apply</a></p>
+{% endif %}
+{% endblock %}
